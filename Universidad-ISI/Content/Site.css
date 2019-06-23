@@ -22,3 +22,11 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.mnu {
+    padding: 10px !important;
+}
+
+a {
+    color: lightskyblue !important;
+}
