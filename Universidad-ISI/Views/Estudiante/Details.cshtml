@@ -1,23 +1,16 @@
 ﻿@model Universidad_ISI.Models.Estudiante
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles";
 }
 
-<h2>Details</h2>
+<br />
 
 <div>
-    <h4>Estudiante</h4>
+    <h4>Información de Estudiante</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Apellidos)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Apellidos)
-        </dd>
-
+        
         <dt>
             @Html.DisplayNameFor(model => model.Nombres)
         </dt>
@@ -27,7 +20,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.FechaInscripcion)
+            @Html.DisplayNameFor(model => model.Apellidos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Apellidos)
+        </dd>
+
+        <dt>
+            Fecha de Inscripción
         </dt>
 
         <dd>
@@ -37,6 +38,5 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.EstudianteId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Regresar", "Index")
 </p>

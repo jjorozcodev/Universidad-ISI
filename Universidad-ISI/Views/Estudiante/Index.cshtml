@@ -1,43 +1,43 @@
 ﻿@model IEnumerable<Universidad_ISI.Models.Estudiante>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Estudiantes";
 }
-
-<h2>Index</h2>
-
+<br/>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Nuevo", "Create", "Estudiante", null, new { @class = "btn btn-primary" })
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Apellidos)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Nombres)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FechaInscripcion)
+            @Html.DisplayNameFor(model => model.Apellidos)
         </th>
-        <th></th>
+        <th>
+            Fecha de Inscripción
+        </th>
+        <th>
+            Acciones
+        </th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Apellidos)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Nombres)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FechaInscripcion)
+            @Html.DisplayFor(modelItem => item.Apellidos)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EstudianteId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.EstudianteId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.EstudianteId })
+            @item.FechaInscripcion.ToString("yyyy-MM-dd")
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.EstudianteId }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.EstudianteId }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.EstudianteId })
         </td>
     </tr>
 }
