@@ -34,7 +34,29 @@
         <dd>
             @Html.DisplayFor(model => model.FechaInscripcion)
         </dd>
-
+        <dt>
+            @Html.DisplayNameFor(model => model.Inscripciones)
+            <br/>
+        </dt>
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>Título del Curso</th>
+                    <th>Nota Obtenida</th>
+                </tr>
+                @foreach (var item in Model.Inscripciones)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Curso.Titulo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nota)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
     </dl>
 </div>
 <p>
