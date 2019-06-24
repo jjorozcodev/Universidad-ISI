@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -14,9 +15,37 @@ namespace Universidad_ISI.Controllers
         private ContextoUniversidad db = new ContextoUniversidad();
 
         // GET: Estudiante
-        public ActionResult Index()
+        public ActionResult Index(string ordenArreglo)
         {
-            return View(db.Estudiantes.ToList());
+            ViewBag.OrdenarNombre = String.IsNullOrEmpty(ordenArreglo) ? "nombresDesc" : "";
+            ViewBag.OrdenarApellido = ordenArreglo == "apellidosAsc" ? "apellidosDesc" : "apellidosAsc";
+            ViewBag.OrdenarFechaInscripcion = ordenArreglo == "fechaAsc" ? "fechaDesc" : "fechaAsc";
+
+            var estudiantes = from s in db.Estudiantes
+                           select s;
+            switch (ordenArreglo)
+            {
+                case "nombresDesc":
+                    estudiantes = estudiantes.OrderByDescending(s => s.Nombres);
+                    break;
+                case "apellidosAsc":
+                    estudiantes = estudiantes.OrderBy(s => s.Apellidos);
+                    break;
+                case "apellidosDesc":
+                    estudiantes = estudiantes.OrderByDescending(s => s.Apellidos);
+                    break;
+                case "fechaAsc":
+                    estudiantes = estudiantes.OrderBy(s => s.FechaInscripcion);
+                    break;
+                case "fechaDesc":
+                    estudiantes = estudiantes.OrderByDescending(s => s.FechaInscripcion);
+                    break;
+                default: // Nombres Ascendentes
+                    estudiantes = estudiantes.OrderBy(s => s.Nombres);
+                    break;
+            }
+
+            return View(estudiantes.ToList());
         }
 
         // GET: Estudiante/Details/5

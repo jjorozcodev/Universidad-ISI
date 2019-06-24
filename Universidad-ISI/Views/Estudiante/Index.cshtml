@@ -7,16 +7,18 @@
 <p>
     @Html.ActionLink("Nuevo", "Create", "Estudiante", null, new { @class = "btn btn-primary" })
 </p>
+
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Nombres)
+            @Html.ActionLink("Nombres", "Index", new { ordenArreglo = ViewBag.OrdenarNombre })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Apellidos)
+            @Html.ActionLink("Apellidos", "Index", new { ordenArreglo = ViewBag.OrdenarApellido })
         </th>
         <th>
-            Fecha de Inscripción
+            @Html.ActionLink("Fecha de Inscripción", "Index", new { ordenArreglo = ViewBag.OrdenarFechaInscripcion })
         </th>
         <th>
             Acciones
