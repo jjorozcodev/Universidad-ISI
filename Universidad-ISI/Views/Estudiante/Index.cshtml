@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Universidad_ISI.Models.Estudiante>
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<Universidad_ISI.Models.Estudiante>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Estudiantes";
@@ -52,3 +54,8 @@
 }
 
 </table>
+<br />
+Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, ordenArreglo = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

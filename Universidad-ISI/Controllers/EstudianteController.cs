@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Data;
-using System.Data.Entity;
+using PagedList;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -15,11 +15,23 @@ namespace Universidad_ISI.Controllers
         private ContextoUniversidad db = new ContextoUniversidad();
 
         // GET: Estudiante
-        public ActionResult Index(string ordenArreglo, string searchString)
+        public ActionResult Index(string ordenArreglo, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = ordenArreglo;
             ViewBag.OrdenarNombre = String.IsNullOrEmpty(ordenArreglo) ? "nombresDesc" : "";
             ViewBag.OrdenarApellido = ordenArreglo == "apellidosAsc" ? "apellidosDesc" : "apellidosAsc";
             ViewBag.OrdenarFechaInscripcion = ordenArreglo == "fechaAsc" ? "fechaDesc" : "fechaAsc";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
 
             var estudiantes = from s in db.Estudiantes
                            select s;
@@ -51,8 +63,10 @@ namespace Universidad_ISI.Controllers
                     estudiantes = estudiantes.OrderBy(s => s.Nombres);
                     break;
             }
-
-            return View(estudiantes.ToList());
+            
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(estudiantes.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Estudiante/Details/5
