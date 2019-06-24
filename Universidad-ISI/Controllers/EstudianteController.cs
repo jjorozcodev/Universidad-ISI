@@ -15,7 +15,7 @@ namespace Universidad_ISI.Controllers
         private ContextoUniversidad db = new ContextoUniversidad();
 
         // GET: Estudiante
-        public ActionResult Index(string ordenArreglo)
+        public ActionResult Index(string ordenArreglo, string searchString)
         {
             ViewBag.OrdenarNombre = String.IsNullOrEmpty(ordenArreglo) ? "nombresDesc" : "";
             ViewBag.OrdenarApellido = ordenArreglo == "apellidosAsc" ? "apellidosDesc" : "apellidosAsc";
@@ -23,6 +23,13 @@ namespace Universidad_ISI.Controllers
 
             var estudiantes = from s in db.Estudiantes
                            select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                estudiantes = estudiantes.Where(s => s.Apellidos.Contains(searchString)
+                                       || s.Nombres.Contains(searchString));
+            }
+
             switch (ordenArreglo)
             {
                 case "nombresDesc":

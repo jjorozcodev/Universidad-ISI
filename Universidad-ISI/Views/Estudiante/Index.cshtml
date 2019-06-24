@@ -8,6 +8,13 @@
     @Html.ActionLink("Nuevo", "Create", "Estudiante", null, new { @class = "btn btn-primary" })
 </p>
 
+@using (Html.BeginForm())
+{
+    <p>
+        Buscar por: @Html.TextBox("SearchString", null, new { @class = "form-control col-md-2" } )
+        <input type="submit" value="Buscar" />
+    </p>
+}
 
 <table class="table">
     <tr>
