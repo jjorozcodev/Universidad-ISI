@@ -8,7 +8,7 @@
 
 <div>
     <h4>¿Desea eliminar al estudiante <b> @Html.DisplayFor(model => model.Nombres) @Html.DisplayFor(model => model.Apellidos)</b>?</h4>
-
+    <p class="error">@ViewBag.ErrorMessage</p>
     
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()

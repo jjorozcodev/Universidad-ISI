@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -43,15 +45,23 @@ namespace Universidad_ISI.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EstudianteId,Apellidos,Nombres,FechaInscripcion")] Estudiante estudiante)
+        public ActionResult Create([Bind(Include = "Apellidos,Nombres,FechaInscripcion")] Estudiante estudiante)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Estudiantes.Add(estudiante);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Estudiantes.Add(estudiante);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-
+            catch (DataException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "No se pueden guardar los cambios. Intente de nuevo, y si el problema persiste contacte al administrador del sistema.");
+            }
+            
             return View(estudiante);
         }
 
@@ -73,25 +83,43 @@ namespace Universidad_ISI.Controllers
         // POST: Estudiante/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EstudianteId,Apellidos,Nombres,FechaInscripcion")] Estudiante estudiante)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(estudiante).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(estudiante);
-        }
-
-        // GET: Estudiante/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult EditPost(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var estudianteActualizar = db.Estudiantes.Find(id);
+            if (TryUpdateModel(estudianteActualizar, "",
+               new string[] { "Apellidos", "Nombres", "FechaInscripcion" }))
+            {
+                try
+                {
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                catch (RetryLimitExceededException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "No se pueden guardar los cambios. Intente de nuevo, y si el problema persiste contacte al administrador del sistema.");
+                }
+            }
+            return View(estudianteActualizar);
+        }
+        
+        // GET: Estudiante/Delete/5
+        public ActionResult Delete(int? id, bool? saveChangesError = false)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = "Eliminación fallida. Intente de nuevo, y si el problema persiste contacte al administrador del sistema.";
             }
             Estudiante estudiante = db.Estudiantes.Find(id);
             if (estudiante == null)
@@ -102,13 +130,21 @@ namespace Universidad_ISI.Controllers
         }
 
         // POST: Estudiante/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(int id)
         {
-            Estudiante estudiante = db.Estudiantes.Find(id);
-            db.Estudiantes.Remove(estudiante);
-            db.SaveChanges();
+            try
+            {
+                Estudiante estudiante = db.Estudiantes.Find(id);
+                db.Estudiantes.Remove(estudiante);
+                db.SaveChanges();
+            }
+            catch (DataException/* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
             return RedirectToAction("Index");
         }
 
