@@ -13,12 +13,20 @@ namespace Universidad_ISI.Datos
         public DbSet<Estudiante> Estudiantes { get; set; }
         public DbSet<Curso> Cursos { get; set; }
         public DbSet<Inscripcion> Inscripciones { get; set; }
+        public DbSet<Departamento> Departmentos { get; set; }
+        public DbSet<Instructor> Instructores { get; set; }
+        public DbSet<OficinaAsignada> OficinasAsignadas { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //base.OnModelCreating(modelBuilder);
 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Entity<Curso>()
+             .HasMany(c => c.Instructores).WithMany(i => i.Cursos)
+             .Map(t => t.MapLeftKey("CourseID")
+                 .MapRightKey("InstructorID")
+                 .ToTable("CourseInstructor"));
         }
     }
 }

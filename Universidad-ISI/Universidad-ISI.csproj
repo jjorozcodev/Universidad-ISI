@@ -181,10 +181,29 @@
     <Compile Include="Migrations\201907080226396_CreacionInicial.Designer.cs">
       <DependentUpon>201907080226396_CreacionInicial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907080256263_MaxLengthOnNames.cs" />
+    <Compile Include="Migrations\201907080256263_MaxLengthOnNames.Designer.cs">
+      <DependentUpon>201907080256263_MaxLengthOnNames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907080259234_ColumnFirstName.cs" />
+    <Compile Include="Migrations\201907080259234_ColumnFirstName.Designer.cs">
+      <DependentUpon>201907080259234_ColumnFirstName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907080345401_UpdateEstudiante.cs" />
+    <Compile Include="Migrations\201907080345401_UpdateEstudiante.Designer.cs">
+      <DependentUpon>201907080345401_UpdateEstudiante.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907080528299_ModeloComplejoDatos.cs" />
+    <Compile Include="Migrations\201907080528299_ModeloComplejoDatos.Designer.cs">
+      <DependentUpon>201907080528299_ModeloComplejoDatos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Curso.cs" />
+    <Compile Include="Models\Departamento.cs" />
     <Compile Include="Models\Estudiante.cs" />
     <Compile Include="Models\Inscripcion.cs" />
+    <Compile Include="Models\Instructor.cs" />
+    <Compile Include="Models\OficinaAsignada.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\InscripcionesAgrupadas.cs" />
   </ItemGroup>
@@ -281,6 +300,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201907080226396_CreacionInicial.resx">
       <DependentUpon>201907080226396_CreacionInicial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907080256263_MaxLengthOnNames.resx">
+      <DependentUpon>201907080256263_MaxLengthOnNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907080259234_ColumnFirstName.resx">
+      <DependentUpon>201907080259234_ColumnFirstName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907080345401_UpdateEstudiante.resx">
+      <DependentUpon>201907080345401_UpdateEstudiante.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907080528299_ModeloComplejoDatos.resx">
+      <DependentUpon>201907080528299_ModeloComplejoDatos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
