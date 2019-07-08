@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Universidad_ISI.Datos;
+using Universidad_ISI.ViewModels;
 
 namespace Universidad_ISI.Controllers
 {
     public class HomeController : Controller
     {
+        private ContextoUniversidad bd = new ContextoUniversidad();
+
         public ActionResult Index()
         {
             return View();
@@ -15,16 +19,21 @@ namespace Universidad_ISI.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
 
-            return View();
+            IQueryable<InscripcionesAgrupadas> data = from estudiante in bd.Estudiantes
+                                                   group estudiante by estudiante.FechaInscripcion into dateGroup
+                                                   select new InscripcionesAgrupadas()
+                                                   {
+                                                       FechaInscripcion = dateGroup.Key,
+                                                       CantidadEstudiantes = dateGroup.Count()
+                                                   };
+            return View(data.ToList());
         }
 
-        public ActionResult Contact()
+        protected override void Dispose(bool disposing)
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            bd.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

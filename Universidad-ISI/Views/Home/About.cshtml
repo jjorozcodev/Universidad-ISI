@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Universidad_ISI.ViewModels.InscripcionesAgrupadas>
+
+@{
+    ViewBag.Title = "Estadísticas de Estudiantes";
+}
+
+<br />
+
+<h4>@ViewBag.Title</h4>
+<hr />
+
+<table class="table">
+    <tr>
+        <th>
+            Fecha de Inscripción
+        </th>
+        <th>
+            Cantidad de Estudiantes
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaInscripcion)
+            </td>
+            <td>
+                @item.CantidadEstudiantes
+            </td>
+        </tr>
+    }
+</table>
+
+
