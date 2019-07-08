@@ -167,6 +167,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\EstudianteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Datos\ConfiguracionUniversidad.cs" />
     <Compile Include="Datos\ContextoUniversidad.cs" />
     <Compile Include="Datos\InicializadorBD.cs" />
     <Compile Include="Global.asax.cs">

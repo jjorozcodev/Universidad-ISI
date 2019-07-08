@@ -106,7 +106,7 @@ namespace Universidad_ISI.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            catch (DataException /* dex */)
+            catch (RetryLimitExceededException)
             {
                 //Log the error (uncomment dex variable name and add a line here to write a log.
                 ModelState.AddModelError("", "No se pueden guardar los cambios. Intente de nuevo, y si el problema persiste contacte al administrador del sistema.");
