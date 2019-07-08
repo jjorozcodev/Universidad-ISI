@@ -170,9 +170,13 @@
     <Compile Include="Datos\ConfiguracionUniversidad.cs" />
     <Compile Include="Datos\ContextoUniversidad.cs" />
     <Compile Include="Datos\InicializadorBD.cs" />
+    <Compile Include="Datos\UniversidadInterceptorLogging.cs" />
+    <Compile Include="Datos\UniversidadInterceptorTransientErrors.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Logging\Logger.cs" />
     <Compile Include="Models\Curso.cs" />
     <Compile Include="Models\Estudiante.cs" />
     <Compile Include="Models\Inscripcion.cs" />
