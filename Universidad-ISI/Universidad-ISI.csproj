@@ -177,6 +177,11 @@
     </Compile>
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Migrations\201907080226396_CreacionInicial.cs" />
+    <Compile Include="Migrations\201907080226396_CreacionInicial.Designer.cs">
+      <DependentUpon>201907080226396_CreacionInicial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Curso.cs" />
     <Compile Include="Models\Estudiante.cs" />
     <Compile Include="Models\Inscripcion.cs" />
@@ -272,6 +277,11 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201907080226396_CreacionInicial.resx">
+      <DependentUpon>201907080226396_CreacionInicial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
